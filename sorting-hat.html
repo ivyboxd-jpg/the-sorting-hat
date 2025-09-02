@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sorting Hat of Us 🪄</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(rgba(8, 21, 44, 0.9), rgba(8, 21, 44, 0.9)), 
+                       url('https://images.unsplash.com/photo-1518709268800-4b8c1c1c1c1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fGhvbGx5c3xlbnwwfHx8fDE2MzY0MjY0Mjg&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
+            background-size: cover;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .hogwarts-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Background container for candles and stars */
+        .background-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Static glowing candles */
+        .candle {
+            position: absolute;
+            width: 20px;
+            height: 40px;
+            background: linear-gradient(to bottom, #8B4513, #A52A2A);
+            border-radius: 5px 5px 0 0;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .candle::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 8px;
+            background: #FFD700;
+            border-radius: 50% 50% 0 0;
+            box-shadow: 0 0 20px #FF4500, 0 0 30px #FF8C00;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            100% { box-shadow: 0 0 30px rgba(255, 215, 0, 1); }
+        }
+
+        /* Twinkling stars */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Parchment effect */
+        .parchment {
+            background: linear-gradient(to bottom, #f8f1e5, #e8dcbf);
+            border: 2px solid #c19a6b;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            color: #4a2c2a;
+            font-family: 'Crimson Text', serif;
+        }
+
+        /* Magic text animation */
+        @keyframes sparkle {
+            0% { text-shadow: 0 0 5px gold, 0 0 10px orange; }
+            50% { text-shadow: 0 0 20px gold, 0 0 30px orange, 0 0 40px red; }
+            100% { text-shadow: 0 0 5px gold, 0 0 10px orange; }
+        }
+
+        .magic-text {
+            animation: sparkle 3s infinite;
+        }
+
+        /* Sorting hat pulsing animation */
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px gold); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 20px orange); }
+        }
+
+        .sorting-hat {
+            animation: pulse-glow 4s infinite;
+            transition: all 0.3s ease;
+        }
+
+        .sorting-hat:hover {
+            animation: pulse-glow 1s infinite;
+            cursor: pointer;
+        }
+
+        /* Memory card reveal animation */
+        @keyframes reveal {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .memory-card {
+            animation: reveal 0.5s ease-out;
+        }
+
+        /* Trait card hover effect */
+        .trait-card {
+            transition: all 0.3s ease;
+        }
+
+        .trait-card:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .candle {
+                transform: scale(0.7);
+            }
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen flex flex-col">
+    <!-- Background container for candles and stars -->
+    <div class="background-container">
+        <!-- Static glowing candles -->
+        <div class="candle" style="left: 10%; top: 20%;"></div>
+        <div class="candle" style="left: 30%; top: 15%;"></div>
+        <div class="candle" style="left: 70%; top: 25%;"></div>
+        <div class="candle" style="left: 90%; top: 18%;"></div>
+        <div class="candle" style="left: 50%; top: 12%;"></div>
+
+        <!-- Twinkling stars -->
+        <div class="star" style="width: 2px; height: 2px; left: 15%; top: 30%; animation-delay: 0s;"></div>
+        <div class="star" style="width: 3px; height: 3px; left: 25%; top: 60%; animation-delay: 0.5s;"></div>
+        <div class="star" style="width: 2px; height: 2px; left: 75%; top: 40%; animation-delay: 1s;"></div>
+        <div class="star" style="width: 4px; height: 4px; left: 85%; top: 70%; animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- Main content -->
+    <header class="text-center py-8 md:py-12 px-4">
+        <h1 class="hogwarts-font text-4xl md:text-6xl font-bold mb-4 magic-text">The Sorting Hat of Us 🪄</h1>
+        <h2 class="text-xl md:text-2xl italic opacity-90">Discover what makes our love magical.</h2>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center px-4 py-8">
+        <!-- Sorting Hat -->
+        <div class="sorting-hat mb-8 cursor-pointer transform transition-all duration-300 hover:scale-105" onclick="sortTraits()">
+            <img src="path/to/your/image.png" 
+                 alt="Ancient magical sorting hat with worn brown leather texture, golden stitching, and mystical glow, sitting proudly on a wooden stool ready to reveal secrets of the heart" 
+                 class="w-48 md:w-64 h-auto rounded-lg shadow-2xl border-2 border-yellow-600">
+        </div>
+
+        <!-- Traits Display -->
+        <div id="traits" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 w-full max-w-4xl"></div>
+
+        <!-- Memory Reveal -->
+        <div id="memory" class="w-full max-w-2xl mb-8"></div>
+
+        <!-- Custom Trait Input -->
+        <div class="w-full max-w-md mb-8">
+            <input type="text" 
+                   id="new-trait" 
+                   placeholder="add your magical trait name (e.g., 'stamped and sealed')" 
+                   class="w-full px-4 py-3 parchment rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-brown-600">
+            <textarea id="trait-description" 
+                      placeholder="Add a description for your trait..." 
+                      class="w-full mt-2 px-4 py-3 parchment rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-brown-600"></textarea>
+            <button onclick="addTrait()" 
+                    class="w-full mt-3 px-6 py-3 bg-gradient-to-r from-yellow-600 to-orange-500 text-white font-semibold rounded-lg hover:from-yellow-500 hover:to-orange-400 transition-all duration-300 transform hover:scale-105">
+                add Magical Trait ✨
+            </button>
+        </div>
+
+        <!-- Reset Button -->
+        <button onclick="resetTraits()" 
+                class="px-8 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-purple-500 hover:to-indigo-500 transition-all duration-300 mb-8 transform hover:scale-105">
+            Sort Again 🔄
+        </button>
+    </main>
+
+    <footer class="text-center py-6 px-4 border-t border-yellow-200/20">
+        <p class="hogwarts-font text-lg italic magic-text">"Not even a spell could conjure a love like ours."</p>
+    </footer>
+
+    <script>
+        // Updated cute and simple traits with memories
+        const initialTraits = [
+            "morning messages",
+            "laughing together",
+            "shared adventures",
+            "moments of comfortable silence",
+            "cooking together",
+            "stargazing nights",
+            "coffee mornings",
+            "dancing in the rain",
+            "living room parties",
+            "bookstore dates",
+            "sunset walks",
+            "board game nights",
+            "plant parenting",
+            "movie marathons",
+            "cat parenting"
+        ];
+
+        const initialMemories = {
+            "morning messages": "my day never starts until i get to hear from you, my good mornings always begin with you. you're my summer sun during cold winters.",
+            "laughing together": "i love our calls and i love how you laugh. your joy brings me joy and you light up every part of my life when you laugh.",
+            "shared adventures": "jumping out of an airplane, diving into the sea, explorig the woods. i want it all and more with you",
+            "moments of comfortable silence": "the peace of just being together without needing to say a word. what a privilege it is to be comfortably silent with you. ",
+            "cooking together": "our kitchen dance parties while making dinner together as our playlist plays in the background? yep.",
+            "stargazing nights": "lying on a blanket, pointing out constellations we make up.you are still my moon and my north star.",
+            "coffee mornings": "i promised i'll always make coffee for us and drink it with you and i'm standing on it. always & forever.",
+            "dancing in the rain": "i want to kiss you in the rain and dance with you on sparks fly, it's a dream.",
+            "living room parties": "we can be drunk on our love and the rest, you know.",
+            "bookstore dates": "from local bookstores to barnes & noble, i wanna take you everywhere and kiss you in the aisles.",
+            "sunset walks": "i want evening walks watching the colors change in the sky and you in a sundress, oh god.",
+            "board game nights": "some competition and laughter over board games with you and atharv, i promise i'll show up.",
+            "plant parenting": "taking care of our little green kids together and keep adopting more.i want a forest with you at this point, we can fight the mosquitos together.",
+            "movie marathons": "us cuddled up with blankets and our favorite films while you fall asleep in my arms halfway.",
+            "cat parenting": "ivy, stitch, snow, jackie & wilson. i want it all and i want it all with you."
+        };
+
+        let traits = [...initialTraits];
+        let memories = {...initialMemories};
+
+        // Load saved traits from localStorage
+        function loadSavedTraits() {
+            const savedTraits = localStorage.getItem('customTraits');
+            const savedMemories = localStorage.getItem('customMemories');
+            
+            if (savedTraits) {
+                const customTraits = JSON.parse(savedTraits);
+                traits = [...initialTraits, ...customTraits];
+            }
+            
+            if (savedMemories) {
+                const customMemories = JSON.parse(savedMemories);
+                memories = {...initialMemories, ...customMemories};
+            }
+        }
+
+        // Sort traits - main interaction
+        function sortTraits() {
+            loadSavedTraits();
+            const traitsContainer = document.getElementById('traits');
+            const memoryContainer = document.getElementById('memory');
+            
+            // Clear previous results
+            traitsContainer.innerHTML = '';
+            memoryContainer.innerHTML = '';
+            
+            // Get 3-5 random traits
+            const shuffled = [...traits].sort(() => Math.random() - 0.5);
+            const selectedTraits = shuffled.slice(0, 3 + Math.floor(Math.random() * 3));
+            
+            // Create trait cards with animation delay
+            selectedTraits.forEach((trait, index) => {
+                setTimeout(() => {
+                    const traitDiv = document.createElement('div');
+                    traitDiv.className = 'trait-card parchment p-6 rounded-lg text-center cursor-pointer transform hover:scale-105 transition-all duration-300';
+                    traitDiv.innerHTML = `
+                        <div class="hogwarts-font text-2xl font-semibold mb-3 text-brown-800">${trait}</div>
+                        <div class="text-sm opacity-75 text-brown-600">Tap to reveal our magical memory...</div>
+                    `;
+                    traitDiv.onclick = () => revealMemory(trait);
+                    traitsContainer.appendChild(traitDiv);
+                }, index * 300);
+            });
+        }
+
+        // Reveal memory for a trait
+        function revealMemory(trait) {
+            const memoryContainer = document.getElementById('memory');
+            const memoryText = memories[trait] || "This is where our magical memory would appear...";
+            
+            memoryContainer.innerHTML = `
+                <div class="memory-card parchment p-8 rounded-lg shadow-2xl border-2 border-yellow-600">
+                    <h3 class="hogwarts-font text-3xl font-bold mb-4 text-center text-brown-800">${trait}</h3>
+                    <p class="text-xl leading-relaxed text-center text-brown-700 italic">"${memoryText}"</p>
+                    <div class="text-center mt-6">
+                        <span class="inline-block text-4xl animate-bounce">✨</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Add custom trait with description
+        function addTrait() {
+            const input = document.getElementById('new-trait');
+            const descriptionInput = document.getElementById('trait-description');
+            const newTrait = input.value.trim();
+            const newDescription = descriptionInput.value.trim();
+            
+            if (newTrait && newDescription) {
+                // Add to current session
+                traits.push(newTrait);
+                memories[newTrait] = newDescription;
+                
+                // Save to localStorage
+                const customTraits = JSON.parse(localStorage.getItem('customTraits') || '[]');
+                const customMemories = JSON.parse(localStorage.getItem('customMemories') || '{}');
+                
+                customTraits.push(newTrait);
+                customMemories[newTrait] = newDescription;
+                
+                localStorage.setItem('customTraits', JSON.stringify(customTraits));
+                localStorage.setItem('customMemories', JSON.stringify(customMemories));
+                
+                input.value = '';
+                descriptionInput.value = '';
+                
+                // Show magical confirmation
+                const confirmation = document.createElement('div');
+                confirmation.className = 'fixed top-4 right-4 parchment p-4 rounded-lg shadow-xl border-2 border-yellow-600 animate-pulse';
+                confirmation.innerHTML = '<div class="hogwarts-font text-brown-800">✨ Magical trait added!</div>';
+                document.body.appendChild(confirmation);
+                
+                // Display the new trait immediately
+                const traitsContainer = document.getElementById('traits');
+                const newTraitDiv = document.createElement('div');
+                newTraitDiv.className = 'trait-card parchment p-6 rounded-lg text-center cursor-pointer transform hover:scale-105 transition-all duration-300';
+                newTraitDiv.innerHTML = `
+                    <div class="hogwarts-font text-2xl font-semibold mb-3 text-brown-800">${newTrait}</div>
+                    <div class="text-sm opacity-75 text-brown-600">Tap to reveal your magical memory...</div>
+                `;
+                newTraitDiv.onclick = () => revealMemory(newTrait);
+                traitsContainer.appendChild(newTraitDiv);
+                
+                setTimeout(() => {
+                    document.body.removeChild(confirmation);
+                }, 3000);
+            }
+        }
+
+        // Reset and sort again
+        function resetTraits() {
+            document.getElementById('traits').innerHTML = '';
+            document.getElementById('memory').innerHTML = '';
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTraits();
+            
+            // Create more stars dynamically
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = (1 + Math.random() * 3) + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = (Math.random() * 4) + 's';
+                document.body.appendChild(star);
+            }
+        });
+    </script>
+</body>
+</html>
