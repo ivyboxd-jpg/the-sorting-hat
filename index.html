@@ -154,14 +154,14 @@
 
     <!-- Main content -->
     <header class="text-center py-8 md:py-12 px-4">
-        <h1 class="hogwarts-font text-4xl md:text-6xl font-bold mb-4 magic-text">The Sorting Hat of Us 🪄</h1>
-        <h2 class="text-xl md:text-2xl italic opacity-90">Discover what makes our love magical.</h2>
+        <h1 class="hogwarts-font text-4xl md:text-6xl font-bold mb-4 magic-text">The Sorting Hat of Us</h1>
+        <h2 class="text-xl md:text-2xl italic opacity-90">discover what makes our love magical.</h2>
     </header>
 
     <main class="flex-1 flex flex-col items-center px-4 py-8">
         <!-- Sorting Hat -->
         <div class="sorting-hat mb-8 cursor-pointer transform transition-all duration-300 hover:scale-105" onclick="sortTraits()">
-            <img src="the-sorting-hat.png" 
+            <img src="sorting-hat.png" 
                  alt="Ancient magical sorting hat with worn brown leather texture, golden stitching, and mystical glow, sitting proudly on a wooden stool ready to reveal secrets of the heart" 
                  class="w-48 md:w-64 h-auto rounded-lg shadow-2xl border-2 border-yellow-600">
         </div>
@@ -179,7 +179,7 @@
                    placeholder="add your magical trait name (e.g., 'stamped and sealed')" 
                    class="w-full px-4 py-3 parchment rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-brown-600">
             <textarea id="trait-description" 
-                      placeholder="Add a description for your trait..." 
+                      placeholder="add a description for your trait..." 
                       class="w-full mt-2 px-4 py-3 parchment rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 placeholder-brown-600"></textarea>
             <button onclick="addTrait()" 
                     class="w-full mt-3 px-6 py-3 bg-gradient-to-r from-yellow-600 to-orange-500 text-white font-semibold rounded-lg hover:from-yellow-500 hover:to-orange-400 transition-all duration-300 transform hover:scale-105">
@@ -195,7 +195,7 @@
     </main>
 
     <footer class="text-center py-6 px-4 border-t border-yellow-200/20">
-        <p class="hogwarts-font text-lg italic magic-text">"Not even a spell could conjure a love like ours."</p>
+        <p class="hogwarts-font text-lg italic magic-text">"not even a spell could conjure a love like ours."</p>
     </footer>
 
     <script>
@@ -287,7 +287,7 @@
         // Reveal memory for a trait
         function revealMemory(trait) {
             const memoryContainer = document.getElementById('memory');
-            const memoryText = memories[trait] || "This is where our magical memory would appear...";
+            const memoryText = memories[trait] || "this is where our magical memory would appear...";
             
             memoryContainer.innerHTML = `
                 <div class="memory-card parchment p-8 rounded-lg shadow-2xl border-2 border-yellow-600">
@@ -328,7 +328,7 @@
                 // Show magical confirmation
                 const confirmation = document.createElement('div');
                 confirmation.className = 'fixed top-4 right-4 parchment p-4 rounded-lg shadow-xl border-2 border-yellow-600 animate-pulse';
-                confirmation.innerHTML = '<div class="hogwarts-font text-brown-800">✨ Magical trait added!</div>';
+                confirmation.innerHTML = '<div class="hogwarts-font text-brown-800">✨ magical trait added!</div>';
                 document.body.appendChild(confirmation);
                 
                 // Display the new trait immediately
@@ -373,6 +373,7 @@
     </script>
 </body>
 </html>
+
 
 
 
